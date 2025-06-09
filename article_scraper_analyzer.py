@@ -140,21 +140,13 @@ def process_text_file(file, input_df):
         print(f'No matching URL_ID found for file: {file}')
         return None
 
-# Directories to create
-directories_to_create = [
-    '20211030 Test Assignment-20240709T080606Z-001/MasterDictionary',
-    'NLP_Assignment'
-]
 
-# Ensure directories exist
 for directory in directories_to_create:
     ensure_directory(directory)
 
-# Read input data
 input_df = pd.read_excel('Input.xlsx')
 
-# Folder where scraped content is stored
-content_folder = 'NLP_Assignment'
+content_folder = 'NLP'
 
 for index, row in input_df.iterrows():
     url_id = row['URL_ID']
@@ -162,8 +154,7 @@ for index, row in input_df.iterrows():
     title, article_text = extract_article_text(url)
     with open(f'{content_folder}\{url_id}.txt', 'w', encoding='utf-8') as file:
         file.write(title +'\n'+article_text)
-    
-# Process each text file
+
 text_files = [os.path.join(content_folder, f) for f in os.listdir(content_folder) if f.endswith('.txt')]
 results = []
 
